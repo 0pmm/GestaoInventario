@@ -114,8 +114,8 @@ const camposDetalhe = computed(() => {
 </script>
 
 <template>
-  <v-container>
-    <PageHeader titulo="Histórico de movimentações" />
+  <div>
+    <PageHeader titulo="Histórico" subtitulo="Tudo o que aconteceu com os bens: transferências, avarias, vendas e mais." />
 
     <v-alert v-if="!auth.ehAdmin" type="info" variant="tonal" density="compact" class="mb-4">
       Aqui aparecem as mudanças sofridas pelos bens (transferências, avarias, vendas, trocas de
@@ -144,10 +144,10 @@ const camposDetalhe = computed(() => {
           />
         </v-col>
         <v-col cols="6" md="2">
-          <v-text-field v-model="filtros.de" label="De" type="date" hide-details />
+          <v-text-field v-model="filtros.de" label="De" type="date" persistent-placeholder hide-details />
         </v-col>
         <v-col cols="6" md="2">
-          <v-text-field v-model="filtros.ate" label="Até" type="date" hide-details />
+          <v-text-field v-model="filtros.ate" label="Até" type="date" persistent-placeholder hide-details />
         </v-col>
         <v-col v-if="auth.ehAdmin" cols="12" md="3">
           <v-autocomplete
@@ -209,7 +209,7 @@ const camposDetalhe = computed(() => {
         </template>
 
         <template #item.acoes="{ item }">
-          <v-btn icon="mdi-eye" variant="text" title="Ver detalhes" @click="abrirDetalhe(item)" />
+          <v-btn icon="mdi-eye-outline" size="small" color="secondary" variant="text" title="Ver detalhes" @click="abrirDetalhe(item)" />
         </template>
       </v-data-table>
     </v-card>
@@ -229,7 +229,7 @@ const camposDetalhe = computed(() => {
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <style scoped>
