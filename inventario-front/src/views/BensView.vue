@@ -19,8 +19,8 @@ const auth = useAuthStore()
 const { avisar } = useNotificacao()
 
 const headers = [
-  { title: 'Código', key: 'codigoPatrimonio' },
-  { title: 'Nome', key: 'nome' },
+  { title: 'Código', key: 'codigoPatrimonio', cellProps: { class: 'text-no-wrap font-weight-medium' } },
+  { title: 'Nome', key: 'nome', minWidth: 190 },
   { title: 'Categorias', key: 'categorias', sortable: false },
   { title: 'Localização', key: 'localizacao', value: (bem) => bem.localizacao?.nome },
   { title: 'Qtd.', key: 'quantidade', align: 'end' },
@@ -150,8 +150,8 @@ async function confirmarInativacao() {
 </script>
 
 <template>
-  <v-container>
-    <PageHeader titulo="Bens">
+  <div>
+    <PageHeader titulo="Bens" subtitulo="Inventário completo. Bens inativos só aparecem quando filtrados por status.">
       <v-btn v-if="auth.ehAdmin" color="primary" prepend-icon="mdi-plus" @click="abrirNovo">
         Novo bem
       </v-btn>
@@ -197,15 +197,14 @@ async function confirmarInativacao() {
             :items="STATUS_BEM"
             label="Status"
             clearable
-            hint="Inativos só aparecem se escolhidos aqui"
-            persistent-hint
+            hide-details
           />
         </v-col>
         <v-col cols="6" md="3">
-          <v-text-field v-model="filtros.aquisicaoDe" label="Adquirido de" type="date" />
+          <v-text-field v-model="filtros.aquisicaoDe" label="Adquirido de" type="date" persistent-placeholder hide-details />
         </v-col>
         <v-col cols="6" md="3">
-          <v-text-field v-model="filtros.aquisicaoAte" label="Adquirido até" type="date" />
+          <v-text-field v-model="filtros.aquisicaoAte" label="Adquirido até" type="date" persistent-placeholder hide-details />
         </v-col>
         <v-col cols="12" md="3" class="d-flex align-center">
           <v-btn variant="text" prepend-icon="mdi-filter-remove" @click="limparFiltros">
@@ -318,6 +317,7 @@ async function confirmarInativacao() {
             v-model="form.dataAquisicao"
             label="Data de aquisição"
             type="date"
+            persistent-placeholder
             :error-messages="errosCampos.dataAquisicao"
           />
         </v-col>
@@ -391,5 +391,5 @@ async function confirmarInativacao() {
         hide-details
       />
     </ConfirmDialog>
-  </v-container>
+  </div>
 </template>

@@ -4,11 +4,13 @@ defineEmits(['editar', 'excluir'])
 </script>
 
 <template>
-    <v-btn icon="mdi-pencil" variant="text" title="Editar" @click="$emit('editar')" />
+    <v-btn icon="mdi-pencil-outline" variant="text" size="small" color="secondary" title="Editar" @click="$emit('editar')" />
+    <slot />
     <v-btn
         v-if="!semExcluir"
-        icon="mdi-delete"
+        icon="mdi-trash-can-outline"
         variant="text"
+        size="small"
         color="error"
         title="Excluir"
         @click="$emit('excluir')"
