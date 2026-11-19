@@ -18,6 +18,7 @@ import { mensagemDeErro } from '../utils/erros'
 import { STATUS_BEM } from '../utils/enums'
 import { formatarMoeda, formatarNumero } from '../utils/formatadores'
 import PageHeader from '../components/PageHeader.vue'
+import KpiCard from '../components/KpiCard.vue'
 
 // O Chart.js só desenha o que for registrado aqui
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend)
@@ -49,8 +50,8 @@ const ROTULO_METRICA = { bens: 'Bens', unidades: 'Unidades', valor: 'Valor total
 
 // ----- gráficos -----
 const PALETA = [
-  '#1976D2', '#388E3C', '#F57C00', '#7B1FA2', '#C62828',
-  '#00838F', '#5D4037', '#455A64', '#AFB42B', '#E91E63',
+  '#0F766E', '#2E90FA', '#F79009', '#7A5AF8', '#F04438',
+  '#12B76A', '#EE46BC', '#667085', '#84CAFF', '#FEC84B',
 ]
 const cores = (n) => Array.from({ length: n }, (_, i) => PALETA[i % PALETA.length])
 
@@ -58,7 +59,7 @@ function dadosBarra(grupos) {
   const g = paraGrafico(grupos, metrica.value)
   return {
     labels: g.labels,
-    datasets: [{ ...g.datasets[0], label: ROTULO_METRICA[metrica.value], backgroundColor: '#1976D2' }],
+    datasets: [{ ...g.datasets[0], label: ROTULO_METRICA[metrica.value], backgroundColor: '#0F766E', borderRadius: 6 }],
   }
 }
 
@@ -102,8 +103,8 @@ const alturaBarras = (grupos) => `${Math.max(220, grupos.length * 36 + 60)}px`
 </script>
 
 <template>
-  <v-container>
-    <PageHeader titulo="Estatísticas" />
+  <div>
+    <PageHeader titulo="Estatísticas" subtitulo="Distribuição do patrimônio por categoria, local, status e estado." />
 
     <!-- Filtros -->
     <v-card class="pa-4 mb-4">
@@ -140,10 +141,10 @@ const alturaBarras = (grupos) => `${Math.max(220, grupos.length * 36 + 60)}px`
           />
         </v-col>
         <v-col cols="6" md="3">
-          <v-text-field v-model="filtros.aquisicaoDe" label="Adquirido de" type="date" hide-details />
+          <v-text-field v-model="filtros.aquisicaoDe" label="Adquirido de" type="date" persistent-placeholder hide-details />
         </v-col>
         <v-col cols="6" md="3">
-          <v-text-field v-model="filtros.aquisicaoAte" label="Adquirido até" type="date" hide-details />
+          <v-text-field v-model="filtros.aquisicaoAte" label="Adquirido até" type="date" persistent-placeholder hide-details />
         </v-col>
         <v-col cols="12" md="3" class="d-flex align-center">
           <v-switch
@@ -172,25 +173,19 @@ const alturaBarras = (grupos) => `${Math.max(220, grupos.length * 36 + 60)}px`
       <!-- Números gerais -->
       <v-row class="mb-2">
         <v-col cols="6" md="3">
-          <v-card class="pa-4">
-            <div class="text-caption text-medium-emphasis">Bens cadastrados</div>
-            <div class="text-h5">{{ formatarNumero(resumo.bens) }}</div>
-          </v-card>
+          <KpiCard rotulo="Bens cadastrados" :valor="formatarNumero(resumo.bens)" icone="mdi-package-variant-closed" />
         </v-col>
         <v-col cols="6" md="3">
-          <v-card class="pa-4">
-            <div class="text-caption text-medium-emphasis">Unidades</div>
-            <div class="text-h5">{{ formatarNumero(resumo.unidades) }}</div>
-          </v-card>
+          <KpiCard rotulo="Unidades" :valor="formatarNumero(resumo.unidades)" icone="mdi-layers-outline" cor="info" />
         </v-col>
         <v-col cols="12" md="6">
-          <v-card class="pa-4">
-            <div class="text-caption text-medium-emphasis">Valor total (valor × quantidade)</div>
-            <div class="text-h5">{{ formatarMoeda(resumo.valorTotal) }}</div>
-            <div v-if="resumo.semValor" class="text-caption text-warning">
-              {{ resumo.semValor }} bem(ns) sem valor cadastrado não entram na soma
-            </div>
-          </v-card>
+          <KpiCard
+            rotulo="Valor total (valor × quantidade)"
+            :valor="formatarMoeda(resumo.valorTotal)"
+            icone="mdi-cash-multiple"
+            cor="success"
+            :nota="resumo.semValor ? `${resumo.semValor} bem(ns) sem valor cadastrado não entram na soma` : ''"
+          />
         </v-col>
       </v-row>
 
@@ -241,5 +236,5 @@ const alturaBarras = (grupos) => `${Math.max(220, grupos.length * 36 + 60)}px`
         </v-col>
       </v-row>
     </template>
-  </v-container>
+  </div>
 </template>

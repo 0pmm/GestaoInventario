@@ -24,8 +24,8 @@ const {
 </script>
 
 <template>
-  <v-container>
-    <PageHeader titulo="Categorias">
+  <div>
+    <PageHeader titulo="Categorias" subtitulo="Agrupe os bens por tipo.">
       <v-btn color="primary" prepend-icon="mdi-plus" @click="abrirNovo">Nova categoria</v-btn>
     </PageHeader>
 
@@ -76,5 +76,8 @@ const {
       Deseja excluir a categoria <strong>{{ alvoExclusao?.nome }}</strong>?
       Categorias com bens vinculados não podem ser excluídas.
     </ConfirmDialog>
-  </v-container>
+  </div>
 </template>
+<style scoped>
+.busca-lista { max-width: 360px; }
+</style>

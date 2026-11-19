@@ -51,8 +51,8 @@ async function alternarSituacao(usuario) {
 </script>
 
 <template>
-  <v-container>
-    <PageHeader titulo="Usuários">
+  <div>
+    <PageHeader titulo="Usuários" subtitulo="Quem acessa o sistema e com qual perfil.">
       <v-btn color="primary" prepend-icon="mdi-plus" @click="abrirNovo">Novo usuário</v-btn>
     </PageHeader>
 
@@ -139,5 +139,8 @@ async function alternarSituacao(usuario) {
       Deseja excluir <strong>{{ alvoExclusao?.nome }}</strong>?
       Usuários com ações no histórico ou com observações só podem ser inativados.
     </ConfirmDialog>
-  </v-container>
+  </div>
 </template>
+<style scoped>
+.busca-lista { max-width: 360px; }
+</style>

@@ -65,8 +65,8 @@ async function adicionarObservacao() {
 </script>
 
 <template>
-  <v-container>
-    <v-btn variant="text" prepend-icon="mdi-arrow-left" :to="{ name: 'bens' }" class="mb-2">
+  <div>
+    <v-btn variant="text" color="secondary" prepend-icon="mdi-arrow-left" :to="{ name: 'bens' }" class="mb-3 ml-n3">
       Voltar para bens
     </v-btn>
 
@@ -91,42 +91,42 @@ async function adicionarObservacao() {
       </div>
 
       <!-- Dados -->
-      <v-card class="pa-4 mb-4">
+      <v-card class="pa-6 mb-4">
         <v-row>
           <v-col cols="6" md="3">
-            <div class="text-caption text-medium-emphasis">Status</div>
+            <div class="rotulo">Status</div>
             <StatusChip :valor="bem.status" :opcoes="STATUS_BEM" />
           </v-col>
           <v-col cols="6" md="3">
-            <div class="text-caption text-medium-emphasis">Estado de conservação</div>
+            <div class="rotulo">Estado de conservação</div>
             <StatusChip :valor="bem.estadoConservacao" :opcoes="ESTADOS" />
           </v-col>
           <v-col cols="6" md="3">
-            <div class="text-caption text-medium-emphasis">Localização</div>
+            <div class="rotulo">Localização</div>
             <div>{{ bem.localizacao?.nome }}</div>
           </v-col>
           <v-col cols="6" md="3">
-            <div class="text-caption text-medium-emphasis">Quantidade</div>
+            <div class="rotulo">Quantidade</div>
             <div>{{ bem.quantidade }}</div>
           </v-col>
 
           <v-col cols="6" md="3">
-            <div class="text-caption text-medium-emphasis">Valor de aquisição</div>
+            <div class="rotulo">Valor de aquisição</div>
             <div>{{ formatarMoeda(bem.valorAquisicao) }}</div>
           </v-col>
           <v-col cols="6" md="3">
-            <div class="text-caption text-medium-emphasis">Data de aquisição</div>
+            <div class="rotulo">Data de aquisição</div>
             <div>{{ formatarData(bem.dataAquisicao) }}</div>
           </v-col>
           <v-col cols="12" md="6">
-            <div class="text-caption text-medium-emphasis">Categorias</div>
+            <div class="rotulo">Categorias</div>
             <v-chip v-for="c in bem.categorias" :key="c.id" size="small" class="mr-1">
               {{ c.nome }}
             </v-chip>
           </v-col>
 
           <v-col cols="12">
-            <div class="text-caption text-medium-emphasis">Descrição</div>
+            <div class="rotulo">Descrição</div>
             <div style="white-space: pre-wrap">{{ bem.descricao || '—' }}</div>
           </v-col>
         </v-row>
@@ -170,5 +170,5 @@ async function adicionarObservacao() {
         <div v-else class="text-medium-emphasis">Nenhuma observação registrada.</div>
       </v-card>
     </template>
-  </v-container>
+  </div>
 </template>

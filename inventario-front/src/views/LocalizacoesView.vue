@@ -24,8 +24,8 @@ const {
 </script>
 
 <template>
-  <v-container>
-    <PageHeader titulo="Localizações">
+  <div>
+    <PageHeader titulo="Localizações" subtitulo="Onde cada bem está armazenado.">
       <v-btn color="primary" prepend-icon="mdi-plus" @click="abrirNovo">Nova localização</v-btn>
     </PageHeader>
 
@@ -76,5 +76,8 @@ const {
       Deseja excluir a localização <strong>{{ alvoExclusao?.nome }}</strong>?
       Localizações com bens ou que constam no histórico não podem ser excluídas.
     </ConfirmDialog>
-  </v-container>
+  </div>
 </template>
+<style scoped>
+.busca-lista { max-width: 360px; }
+</style>
